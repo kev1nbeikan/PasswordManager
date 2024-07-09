@@ -2,8 +2,7 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
-<p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a
-  href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+<p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
 <table *ngIf="forecasts">
   <thead>
@@ -16,10 +15,10 @@
   </thead>
   <tbody>
   <tr *ngFor="let forecast of forecasts">
-    <td>{{ forecast.password }}</td>
-    <td>{{ forecast.source }}</td>
-    <td>{{ forecast.sourceType }}</td>
-    <td>{{ forecast.CreatedDate }}</td>
+    <td>{{ forecast.date }}</td>
+    <td>{{ forecast.temperatureC }}</td>
+    <td>{{ forecast.temperatureF }}</td>
+    <td>{{ forecast.summary }}</td>
   </tr>
   </tbody>
 </table>

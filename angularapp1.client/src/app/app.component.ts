@@ -1,12 +1,11 @@
-import {HttpClient} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
-interface SavedPassword {
-  id: string;
-  password: string;
-  source: number;
-  sourceType: number;
-  CreatedDate: Date;
+interface WeatherForecast {
+  date: string;
+  temperatureC: number;
+  temperatureF: number;
+  summary: string;
 }
 
 @Component({
@@ -15,23 +14,22 @@ interface SavedPassword {
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  public forecasts: SavedPassword[] = [];
+  public forecasts: WeatherForecast[] = [];
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.getPasswords();
+    this.getForecasts();
   }
 
-  getPasswords() {
-    this.http.get<SavedPassword[]>('/WeatherForecast').subscribe(
-      (result) => {
-        this.forecasts = result;
-      },
-      (error) => {
-        console.error(error);
-      }
+  getForecasts() {
+    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
+        (result) => {
+          this.forecasts = result;
+        },
+        (error) => {
+          console.error(error);
+        }
     );
   }
 
