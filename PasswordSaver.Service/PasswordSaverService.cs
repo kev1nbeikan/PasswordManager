@@ -13,6 +13,9 @@ public class PasswordSaverService(ISavedPasswordRepository savedPasswordReposito
     public async Task<IServiceResult<SavedPassword>> Save(string source, SourceType sourceType, string password)
     {
         //TODO добавить хеширование или шифрование пароля
+        var existedSavedPasswordResult = await _savedPasswordRepository.GetBySource(source);
+        if (existedSavedPasswordResult is not null)
+            return ServiceResult<SavedPassword>.Failure("Пароль для этого ресурса уже существует");
 
         var createdSavedPasswordResult = SavedPassword.CreateWithValidation(
             id: Guid.NewGuid(),

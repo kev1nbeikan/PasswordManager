@@ -12,7 +12,8 @@ public static class ModelsExtensions
             Id = savedPasswordEntity.Id,
             Source = savedPasswordEntity.Source,
             SourceType = (SourceType)savedPasswordEntity.SourceType,
-            Password = savedPasswordEntity.PasswordHash
+            Password = savedPasswordEntity.PasswordHash,
+            CreatedDate = savedPasswordEntity.CreatedDate
         };
     }
 
@@ -23,7 +24,8 @@ public static class ModelsExtensions
             Id = savedPassword.Id,
             Source = savedPassword.Source,
             SourceType = (int)savedPassword.SourceType,
-            PasswordHash = savedPassword.Password
+            PasswordHash = savedPassword.Password,
+            CreatedDate = savedPassword.CreatedDate
         };
     }
 }

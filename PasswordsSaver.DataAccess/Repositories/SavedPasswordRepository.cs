@@ -23,6 +23,14 @@ public class SavedPasswordRepository(PasswordsSaverDbContext dbContext) : ISaved
         return savedPasswordEntity?.ToCore();
     }
 
+    public Task<SavedPassword?> GetBySource(string source)
+    {
+        return _dbContext.SavedPasswords
+            .Where(p => p.Source == source)
+            .Select(p => p.ToCore())
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<List<SavedPassword>> GetAll()
     {
         return await _dbContext.SavedPasswords.Select(

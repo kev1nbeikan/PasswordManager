@@ -7,18 +7,16 @@
 <table *ngIf="forecasts">
   <thead>
   <tr>
-    <th>Date</th>
-    <th>Temp. (C)</th>
-    <th>Temp. (F)</th>
-    <th>Summary</th>
+    <th>Ресурс</th>
+    <th>Пароль</th>
+    <th>Дата сохранения</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let forecast of forecasts">
-    <td>{{ forecast.date }}</td>
-    <td>{{ forecast.temperatureC }}</td>
-    <td>{{ forecast.temperatureF }}</td>
-    <td>{{ forecast.summary }}</td>
+    <td>{{ forecast.source }}</td>
+    <app-password-display [password]=forecast.password></app-password-display>
+    <td>{{ forecast.createdDate }}</td>
   </tr>
   </tbody>
 </table>

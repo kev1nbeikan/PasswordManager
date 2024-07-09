@@ -18,12 +18,22 @@ public class PasswordController : ControllerBase
         _passwordSaverService = passwordSaverService;
     }
 
-    [HttpGet]
+    [HttpGet(Name = "GetPasswords")]
     public async Task<IActionResult> GetAll()
     {
-        return HandleServiceResult(
-            await _passwordSaverService.GetAll()
-        );
+        var getPasswordsResult = await _passwordSaverService.GetAll();
+        if (!getPasswordsResult.IsSuccess) return BadRequest(getPasswordsResult.ErrorMessage);
+
+        return Ok(getPasswordsResult.Data.Select(
+            savedPassword => new SavedPasswordResponse
+            {
+                Id = savedPassword.Id,
+                Source = savedPassword.Source,
+                SourceType = (int)savedPassword.SourceType,
+                Password = savedPassword.Password,
+                CreatedDate = savedPassword.CreatedDate.Date.ToString("yyyy-MM-dd")
+            }
+        ));
     }
 
     [HttpGet("{id:Guid}")]
