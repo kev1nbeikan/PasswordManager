@@ -1,8 +1,8 @@
 using PasswordsSaver.Core;
 
-namespace AngularApp1.Server.Controllers;
+namespace AngularApp1.Server.Contracts;
 
-public class SavedPasswordRequest
+public class NewPasswordRequest
 {
     public string Source { get; set; }
     public SourceType SourceType { get; set; }

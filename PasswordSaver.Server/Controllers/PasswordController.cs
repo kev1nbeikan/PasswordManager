@@ -1,3 +1,4 @@
+using AngularApp1.Server.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using PasswordsSaver.Core.Abstractions;
 using PasswordsSaver.Core.Abstractions.Infastructure;
@@ -42,7 +43,7 @@ public class PasswordController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Save(SavedPasswordRequest request)
+    public async Task<IActionResult> Save(NewPasswordRequest request)
     {
         return HandleServiceResult(
             await _passwordSaverService.Save(

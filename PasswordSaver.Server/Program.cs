@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PasswordSaver.DataAccess;
 using PasswordSaver.DataAccess.Repositories;
