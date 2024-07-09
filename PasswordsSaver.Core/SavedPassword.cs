@@ -38,6 +38,9 @@ public class SavedPassword
         if (Id == Guid.Empty)
             return "Айди не может быть пустым";
 
+        if (!Enum.IsDefined(typeof(SourceType), SourceType))
+            return "Некорректный тип источника";
+
         if (string.IsNullOrEmpty(Source))
             return "Источник не может быть пустым";
 

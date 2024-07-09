@@ -26,7 +26,9 @@
     <ProjectReference Include="..\angularapp1.client\angularapp1.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\PasswordSaver.Service\PasswordSaver.Service.csproj" />
     <ProjectReference Include="..\PasswordsSaver.DataAccess\PasswordsSaver.DataAccess.csproj" />
+    <ProjectReference Include="..\PasswordsSaver.Infastructure\PasswordsSaver.Infastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

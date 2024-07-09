@@ -30,4 +30,18 @@ public class SavedPasswordRepository(PasswordsSaverDbContext dbContext) : ISaved
             )
             .ToListAsync();
     }
+
+    public async Task<bool> Delete(Guid id)
+    {
+        return await _dbContext.SavedPasswords
+            .Where(p => p.Id == id)
+            .ExecuteDeleteAsync() > 0;
+    }
+
+    public async Task<IEnumerable<SavedPassword>> SearchBySource(string searchWorld)
+    {
+        return await _dbContext.SavedPasswords.Where(p => p.Source.ToLower().Contains(searchWorld))
+            .Select(p => p.ToCore())
+            .ToListAsync();
+    }
 }

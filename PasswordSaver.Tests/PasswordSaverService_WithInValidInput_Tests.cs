@@ -15,7 +15,7 @@ public class PasswordSaverService_WithInValidInput_Tests
     public PasswordSaverService_WithInValidInput_Tests()
     {
         _savedPasswordRepository = MoqSavedPasswordRepositoryBuilder.Create().SetupBase().ReturnNullOnGet().Build();
-        _passwordSaverService = new PasswordSaverServiceWithInValidInput(_savedPasswordRepository);
+        _passwordSaverService = new PasswordSaverService(_savedPasswordRepository);
     }
 
     [Test]
@@ -41,5 +41,4 @@ public class PasswordSaverService_WithInValidInput_Tests
             Assert.That(result.ErrorMessage, Is.Not.Null);
         });
     }
-    
 }

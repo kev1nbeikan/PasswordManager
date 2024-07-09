@@ -1,5 +1,11 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PasswordSaver.DataAccess;
+using PasswordSaver.DataAccess.Repositories;
+using PasswordSaver.Service;
+using PasswordsSaver.Core.Abstractions;
+using PasswordsSaver.Core.Abstractions.Infastructure;
+using PasswordsSaver.Infastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,10 +14,12 @@ builder.Services.AddDbContext<PasswordsSaverDbContext>(options =>
     options.UseInMemoryDatabase("PasswordsSaver")
 );
 
-// Add services to the container.
+
+builder.Services.AddScoped<ISavedPasswordRepository, SavedPasswordRepository>();
+builder.Services.AddScoped<IPasswordSaverService, PasswordSaverService>();
+builder.Services.AddScoped<IPasswordHasher, MyPasswordHasher>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

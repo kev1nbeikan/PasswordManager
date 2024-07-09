@@ -4,7 +4,7 @@ using PasswordsSaver.Core.Abstractions.Infastructure;
 namespace PasswordsSaver.Infastructure;
 
 // TODO add real password hasher
-public class PasswordHasher : IPasswordHasher
+public class MyPasswordHasher : IPasswordHasher
 {
     public string Generate(string password) =>
         password;
