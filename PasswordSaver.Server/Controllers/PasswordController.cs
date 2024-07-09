@@ -39,7 +39,7 @@ public class PasswordController : ControllerBase
     [HttpGet("{id:Guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        return HandleServiceResult(
+        return HandleServiceResultBase(
             await _passwordSaverService.Get(id)
         );
     }
@@ -47,7 +47,7 @@ public class PasswordController : ControllerBase
     [HttpDelete("{id:Guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        return HandleServiceResult(
+        return HandleServiceResultBase(
             await _passwordSaverService.Delete(id)
         );
     }
@@ -55,7 +55,7 @@ public class PasswordController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Save(NewPasswordRequest request)
     {
-        return HandleServiceResult(
+        return HandleServiceResultBase(
             await _passwordSaverService.Save(
                 request.Source,
                 request.SourceType,
@@ -65,7 +65,7 @@ public class PasswordController : ControllerBase
     }
 
 
-    private IActionResult HandleServiceResult<T>(IServiceResult<T> result)
+    private IActionResult HandleServiceResultBase<T>(IServiceResult<T> result)
     {
         if (result.IsSuccess) return Ok(result.Data);
         return BadRequest(result.ErrorMessage);
