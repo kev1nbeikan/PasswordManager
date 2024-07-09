@@ -1,4 +1,3 @@
-using AngularApp1.Server.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using PasswordsSaver.Core.Abstractions;
 using PasswordsSaver.Core.Abstractions.Infastructure;
