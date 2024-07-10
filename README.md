@@ -1,3 +1,6 @@
 ### START
 Запустить команду в главной директории
-```dotnet run --project .\PasswordSaver.Server\PasswordSaver.Server.csproj          ```
+
+
+```bash 
+dotnet run --project .\PasswordSaver.Server\PasswordSaver.Server.csproj          ```
