@@ -1,6 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {SavedPassword} from './models/saved-password';
+import {PasswordSaverService} from "./services/passwordSaverService";
+import {NotificationService} from "./services/notificationService";
 
 
 @Component({
@@ -12,7 +14,7 @@ export class AppComponent
   implements OnInit {
   public passwords: SavedPassword[] = [];
 
-  constructor(private http: HttpClient
+  constructor(private passwordSaverService: PasswordSaverService, private notificationService: NotificationService
   ) {
   }
 
@@ -22,12 +24,12 @@ export class AppComponent
 
 
   getPasswords() {
-    this.http.get<SavedPassword[]>('password').subscribe(
+    this.passwordSaverService.getPasswords().subscribe(
       (result) => {
         this.showPasswords(result);
       },
       (error) => {
-        console.error(error);
+        this.notificationService.showSuccessWithTimeout("Произошла ошибка при получении паролей", 5000)
       }
     );
   }

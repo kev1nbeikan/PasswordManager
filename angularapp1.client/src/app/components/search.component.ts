@@ -10,6 +10,8 @@ import {PasswordSaverService} from "../services/passwordSaverService";
   selector: 'app-search',
   template: `
     <input type="text" placeholder="Поиск..." [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()">
+    <button (click)="onSearchChange()">Поиск</button>
+    <button (click)="getAllPasswords()">Показать все</button>
   `
 })
 export class SearchComponent implements OnInit {
@@ -28,7 +30,7 @@ export class SearchComponent implements OnInit {
   }
 
   onSearchChange() {
-    if (this.searchQuery.trim() === '') {
+    if (this.searchQuery.trim() === "") {
       this.getAllPasswords();
     } else {
 
