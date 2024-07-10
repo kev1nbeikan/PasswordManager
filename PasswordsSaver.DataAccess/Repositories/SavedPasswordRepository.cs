@@ -33,7 +33,7 @@ public class SavedPasswordRepository(PasswordsSaverDbContext dbContext) : ISaved
 
     public async Task<IEnumerable<SavedPassword>> GetAll()
     {
-        return await _dbContext.SavedPasswords.OrderBy(p => p.CreatedDate).Select(
+        return await _dbContext.SavedPasswords.OrderByDescending(p => p.CreatedDate).Select(
                 p => p.ToCore()
             )
             .ToListAsync();
@@ -49,7 +49,7 @@ public class SavedPasswordRepository(PasswordsSaverDbContext dbContext) : ISaved
     public async Task<IEnumerable<SavedPassword>> SearchBySource(string searchWorld)
     {
         return await _dbContext.SavedPasswords.Where(p => p.Source.ToLower().Contains(searchWorld.ToLower()))
-            .OrderBy(p => p.CreatedDate)
+            .OrderByDescending(p => p.CreatedDate)
             .Select(p => p.ToCore())
             .ToListAsync();
     }
