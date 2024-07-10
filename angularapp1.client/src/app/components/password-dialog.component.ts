@@ -184,14 +184,18 @@ export class PasswordDialogComponent implements OnInit {
 
   onSourceTypeChange(type: string) {
     this.sourceType = type
-    if (type === 'email') {
-      this.form.get('name')?.setValidators([this.validateEmail,]);
-    } else if (type === 'site') {
-      this.form.get('name')?.removeValidators([this.validateEmail,]);
+    const nameControl = this.form.get('name');
+
+    switch (type) {
+      case 'email':
+        nameControl?.setValidators([this.validateEmail,]);
+        break;
+      case 'site':
+        nameControl?.removeValidators([this.validateEmail,]);
+        break;
     }
 
-    this.form.get('name')?.updateValueAndValidity();
-
+    nameControl?.updateValueAndValidity();
     console.log(this.sourceType);
   }
 }
