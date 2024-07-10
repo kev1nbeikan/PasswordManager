@@ -40,11 +40,11 @@ public class PasswordSaverService(ISavedPasswordRepository savedPasswordReposito
             : ServiceResult<SavedPassword>.Success(savedPassword!);
     }
 
-    public async Task<IServiceResult<List<SavedPassword>>> GetAll()
+    public async Task<IServiceResult<IEnumerable<SavedPassword>>> GetAll()
     {
         var savedPasswords = await _savedPasswordRepository.GetAll();
 
-        return ServiceResult<List<SavedPassword>>.Success(savedPasswords);
+        return ServiceResult<IEnumerable<SavedPassword>>.Success(savedPasswords);
     }
 
     public async Task<IServiceResult<SavedPassword>> Delete(Guid id)
@@ -61,8 +61,7 @@ public class PasswordSaverService(ISavedPasswordRepository savedPasswordReposito
     public async Task<IServiceResult<IEnumerable<SavedPassword>>> Search(string search)
     {
         if (!IsValidSearch(search))
-            return ServiceResult<IEnumerable<SavedPassword>>.Failure("Некорректные параметры поиска");
-
+            return ServiceResult<IEnumerable<SavedPassword>>.Failure("Некорректные параметры поиска"); 
         var savedPasswords = await _savedPasswordRepository.SearchBySource(FixSearch(search));
         return ServiceResult<IEnumerable<SavedPassword>>.Success(savedPasswords);
     }

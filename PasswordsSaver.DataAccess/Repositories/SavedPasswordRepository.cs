@@ -31,7 +31,7 @@ public class SavedPasswordRepository(PasswordsSaverDbContext dbContext) : ISaved
             .FirstOrDefaultAsync();
     }
 
-    public async Task<List<SavedPassword>> GetAll()
+    public async Task<IEnumerable<SavedPassword>> GetAll()
     {
         return await _dbContext.SavedPasswords.Select(
                 p => p.ToCore()
@@ -48,7 +48,7 @@ public class SavedPasswordRepository(PasswordsSaverDbContext dbContext) : ISaved
 
     public async Task<IEnumerable<SavedPassword>> SearchBySource(string searchWorld)
     {
-        return await _dbContext.SavedPasswords.Where(p => p.Source.ToLower().Contains(searchWorld))
+        return await _dbContext.SavedPasswords.Where(p => p.Source.ToLower().Contains(searchWorld.ToLower()))
             .Select(p => p.ToCore())
             .ToListAsync();
     }

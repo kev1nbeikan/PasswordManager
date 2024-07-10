@@ -9,7 +9,8 @@ public interface IPasswordSaverService
         string password);
 
     Task<IServiceResult<SavedPassword>> Get(Guid id);
-    Task<IServiceResult<List<SavedPassword>>> GetAll();
+    Task<IServiceResult<IEnumerable<SavedPassword>>> GetAll();
 
     Task<IServiceResult<SavedPassword>> Delete(Guid id);
+    Task<IServiceResult<IEnumerable<SavedPassword>>> Search(string searchString);
 }

@@ -1,5 +1,6 @@
 using AngularApp1.Server.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using PasswordsSaver.Core;
 using PasswordsSaver.Core.Abstractions;
 using PasswordsSaver.Core.Abstractions.Infastructure;
 
@@ -18,22 +19,12 @@ public class PasswordController : ControllerBase
         _passwordSaverService = passwordSaverService;
     }
 
-    [HttpGet(Name = "GetPasswords")]
+    [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var getPasswordsResult = await _passwordSaverService.GetAll();
-        if (!getPasswordsResult.IsSuccess) return BadRequest(getPasswordsResult.ErrorMessage);
-
-        return Ok(getPasswordsResult.Data.Select(
-            savedPassword => new SavedPasswordResponse
-            {
-                Id = savedPassword.Id,
-                Source = savedPassword.Source,
-                SourceType = (int)savedPassword.SourceType,
-                Password = savedPassword.Password,
-                CreatedDate = savedPassword.CreatedDate.Date.ToString("yyyy-MM-dd")
-            }
-        ));
+        return HandleServiceEnumerableResult(
+            await _passwordSaverService.GetAll()
+        );
     }
 
     [HttpGet("{id:Guid}")]
@@ -64,10 +55,35 @@ public class PasswordController : ControllerBase
         );
     }
 
+    [HttpGet("search")]
+    public async Task<IActionResult> Search([FromQuery] string? searchString)
+    {
+        return HandleServiceEnumerableResult(
+            await _passwordSaverService.Search(searchString ?? "")
+        );
+    }
+
 
     private IActionResult HandleServiceResultBase<T>(IServiceResult<T> result)
     {
         if (result.IsSuccess) return Ok(result.Data);
         return BadRequest(result.ErrorMessage);
+    }
+
+
+    private IActionResult HandleServiceEnumerableResult(IServiceResult<IEnumerable<SavedPassword>> result)
+    {
+        if (!result.IsSuccess) return BadRequest(result.ErrorMessage);
+
+        return Ok(result.Data.Select(
+            savedPassword => new SavedPasswordResponse
+            {
+                Id = savedPassword.Id,
+                Source = savedPassword.Source,
+                SourceType = (int)savedPassword.SourceType,
+                Password = savedPassword.Password,
+                CreatedDate = savedPassword.CreatedDate.Date.ToString("yyyy-MM-dd")
+            }
+        ));
     }
 }

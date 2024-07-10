@@ -1,11 +1,15 @@
-﻿<h1 id="tableLabel">Ваши сохраненные пароли</h1>
+﻿<h1 id="tableLabel">Cохраненные пароли</h1>
 
 
-<p *ngIf="!passwords"><em>Loading... Please refresh once the ASP.NET backend has started. See <a
-  href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+<p *ngIf="!passwords">Загрузка... Возможно отсутствует соединение с интернетом</p>
+<app-notification></app-notification>
 <p>
-  <app-password-form></app-password-form>
+  <app-password-form (onSuccessPasswordSave)="getPasswords()"></app-password-form>
 </p>
+<p>
+  <app-search [initialPasswords]="passwords" (searchResults)="showPasswords($event)"></app-search>
+</p>
+
 <table *ngIf="passwords">
   <thead>
   <tr>

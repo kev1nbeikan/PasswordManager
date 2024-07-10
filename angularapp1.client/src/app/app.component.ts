@@ -1,13 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-
-interface SavedPassword {
-  id: string;
-  password: string;
-  source: string;
-  sourceType: number;
-  createdDate: string;
-}
+import {SavedPassword} from './models/saved-password';
 
 
 @Component({
@@ -24,14 +17,14 @@ export class AppComponent
   }
 
   ngOnInit() {
-    this.getForecasts();
+    this.getPasswords();
   }
 
 
-  getForecasts() {
+  getPasswords() {
     this.http.get<SavedPassword[]>('password').subscribe(
       (result) => {
-        this.passwords = result
+        this.showPasswords(result);
       },
       (error) => {
         console.error(error);
@@ -39,7 +32,9 @@ export class AppComponent
     );
   }
 
-
+  showPasswords(passwords: SavedPassword[]) {
+    this.passwords = passwords
+  }
 
 
   title = 'angularapp1.client';

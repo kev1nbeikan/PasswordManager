@@ -1,11 +1,12 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import { NotificationService } from "./error/notificationService";
 
 
-enum SourceTypes {
-  Email = 0,
-  Site = 1
+enum SourceType {
+  Site = 1,
+  Email = 0
 }
 
 
@@ -13,12 +14,14 @@ enum SourceTypes {
   selector: 'app-password-form',
   template: `
     <button (click)="openDialog()">Добавить пароль</button>
-    <app-password-dialog *ngIf="showDialog" (closeDialogEvent)="closeDialog()"></app-password-dialog>
+    <app-password-dialog *ngIf="showDialog" (closeDialogEvent)="closeDialog()"
+                         (onSuccessPasswordSave)="onSuccessPasswordSave.emit()"></app-password-dialog>
   `,
   styles: [],
 })
 export class PasswordFormComponent implements OnInit {
   showDialog = false;
+  @Output() onSuccessPasswordSave = new EventEmitter<unknown>();
 
 
   constructor() {
@@ -133,9 +136,9 @@ export class PasswordFormComponent implements OnInit {
 })
 export class PasswordDialogComponent implements OnInit {
   form: FormGroup;
-  sourceType = 'site'; // По умолчанию сайт
+  sourceType = 'site';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private notificationService: NotificationService) {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -153,16 +156,19 @@ export class PasswordDialogComponent implements OnInit {
 
       let passwordRequest = {
         Source: this.form.get('name')?.value,
-        SourceType: this.form.value.sourceType,
+        SourceType: this.parseSourceType(this.form.value.sourceType),
         Password: this.form.get('password')?.value
       };
 
       this.http.post('password', passwordRequest).subscribe(
-        (result) => {
-          console.log(result);
+        (response: any) => {
+          const responseBody = response.body;
+          this.notificationService.showSuccessWithTimeout('Пароль успешно сохранен', 3000);
+          this.onSuccessPasswordSave.emit()
         },
-        (error) => {
-          console.error(error);
+        (error: HttpErrorResponse) => {
+          const errorMessage = error.error || 'Не удалось сохранить пароль';
+          this.notificationService.showErrorWithTimeout(errorMessage, 3000);
         }
       );
 
@@ -171,6 +177,7 @@ export class PasswordDialogComponent implements OnInit {
   }
 
   @Output() closeDialogEvent = new EventEmitter<void>();
+  @Output() onSuccessPasswordSave = new EventEmitter<unknown>();
 
   closeDialog(): void {
     this.closeDialogEvent.emit();
@@ -198,4 +205,17 @@ export class PasswordDialogComponent implements OnInit {
     nameControl?.updateValueAndValidity();
     console.log(this.sourceType);
   }
+
+
+  parseSourceType(sourceType: string): SourceType | null {
+    switch (sourceType) {
+      case 'email':
+        return SourceType.Email;
+      case 'site':
+        return SourceType.Site;
+      default:
+        return null;
+    }
+  }
+
 }
