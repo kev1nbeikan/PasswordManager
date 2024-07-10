@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from "rxjs";
-import {NotificationService} from "./notificationService";
+import {NotificationService} from "../services/notificationService";
 
 @Component({
   selector: 'app-notification',
@@ -44,7 +44,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   type: 'error' | 'success' | null = null;
   private subscription: Subscription = new Subscription();
 
-  constructor(private notificationService: NotificationService) {}
+  constructor(private notificationService: NotificationService) {
+  }
 
   ngOnInit(): void {
     this.subscription.add(

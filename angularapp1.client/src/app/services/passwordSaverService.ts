@@ -3,12 +3,12 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, tap, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {SavedPassword} from '../models/saved-password';
-import {NotificationService} from "../components/error/notificationService";
+import {NotificationService} from "./notificationService";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PasswordService {
+export class PasswordSaverService {
 
   private apiUrl = 'password'; // Замените на ваш URL
 

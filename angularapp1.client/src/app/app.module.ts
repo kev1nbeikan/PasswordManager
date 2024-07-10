@@ -7,10 +7,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {PasswordDisplayComponent} from "./components/password-display.component";
 import {PasswordDialogComponent, PasswordFormComponent} from "./components/password-dialog.component";
-import {NotificationService} from "./components/error/notificationService";
-import {NotificationComponent} from "./components/error/notification.component";
+import {NotificationService} from "./services/notificationService";
+import {NotificationComponent} from "./components/notification.component";
 import {SearchComponent} from "./components/search.component";
-import {PasswordService} from "./services/passwordSaverService";
+import {PasswordSaverService} from "./services/passwordSaverService";
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import {PasswordService} from "./services/passwordSaverService";
     AppRoutingModule,
     ReactiveFormsModule, FormsModule
   ],
-  providers: [NotificationService, PasswordService],
+  providers: [NotificationService, PasswordSaverService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

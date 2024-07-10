@@ -4,12 +4,13 @@
     &lt;TestId&gt;NUnit3x::F324C666-7F3A-441A-AF35-4C6256AA19E8::net8.0::PasswordSaver.Tests.PasswordSaverServiceErrorTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8c0684f8_002Df0a5_002D4605_002D8f61_002D6b7a4140a52a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PasswordSaverServiceErrorTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8c0684f8_002Df0a5_002D4605_002D8f61_002D6b7a4140a52a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PasswordSaverServiceErrorTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::F324C666-7F3A-441A-AF35-4C6256AA19E8::net8.0::PasswordSaver.Tests.PasswordSaverRepositoryTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::F324C666-7F3A-441A-AF35-4C6256AA19E8::net8.0::PasswordSaver.Tests.PasswordSaverService_WithInValidInput_Tests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e99da588_002Dbec5_002D45c9_002Dab81_002Ddbe1c330e9e4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PasswordSaverRepositoryTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e99da588_002Dbec5_002D45c9_002Dab81_002Ddbe1c330e9e4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PasswordSaverRepositoryTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::F324C666-7F3A-441A-AF35-4C6256AA19E8::net8.0::PasswordSaver.Tests.PasswordSaverRepositoryTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;

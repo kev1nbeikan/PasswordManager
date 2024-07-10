@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import { NotificationService } from "./error/notificationService";
+import {NotificationService} from "../services/notificationService";
 
 
 enum SourceType {
@@ -15,13 +15,13 @@ enum SourceType {
   template: `
     <button (click)="openDialog()">Добавить пароль</button>
     <app-password-dialog *ngIf="showDialog" (closeDialogEvent)="closeDialog()"
-                         (onSuccessPasswordSave)="onSuccessPasswordSave.emit()"></app-password-dialog>
+                         (onSuccessPasswordSave)="onSuccessPasswordSave()"></app-password-dialog>
   `,
   styles: [],
 })
 export class PasswordFormComponent implements OnInit {
   showDialog = false;
-  @Output() onSuccessPasswordSave = new EventEmitter<unknown>();
+  @Output() onSuccessPasswordSaveEvent = new EventEmitter<unknown>();
 
 
   constructor() {
@@ -32,6 +32,10 @@ export class PasswordFormComponent implements OnInit {
 
   openDialog(): void {
     this.showDialog = true;
+  }
+
+  onSuccessPasswordSave(): void {
+    this.onSuccessPasswordSaveEvent.emit()
   }
 
   closeDialog(): void {
@@ -164,6 +168,7 @@ export class PasswordDialogComponent implements OnInit {
         (response: any) => {
           const responseBody = response.body;
           this.notificationService.showSuccessWithTimeout('Пароль успешно сохранен', 3000);
+          this.closeDialogEvent.emit();
           this.onSuccessPasswordSave.emit()
         },
         (error: HttpErrorResponse) => {

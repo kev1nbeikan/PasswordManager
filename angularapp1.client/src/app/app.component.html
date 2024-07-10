@@ -4,7 +4,7 @@
 <p *ngIf="!passwords">Загрузка... Возможно отсутствует соединение с интернетом</p>
 <app-notification></app-notification>
 <p>
-  <app-password-form (onSuccessPasswordSave)="getPasswords()"></app-password-form>
+  <app-password-form (onSuccessPasswordSaveEvent)="getPasswords()"></app-password-form>
 </p>
 <p>
   <app-search [initialPasswords]="passwords" (searchResults)="showPasswords($event)"></app-search>

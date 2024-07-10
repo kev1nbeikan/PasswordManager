@@ -26,7 +26,7 @@ public class MoqSavedPasswordRepositoryBuilder
         moqSavedPasswordRepository.Setup(x => x.Get(It.IsAny<Guid>()))
             .Returns(Task.FromResult(new SavedPassword()));
         moqSavedPasswordRepository.Setup(x => x.GetAll())
-            .Returns(Task.FromResult(new List<SavedPassword>()));
+            .Returns(Task.FromResult<IEnumerable<SavedPassword>>(new List<SavedPassword>()));
 
         return this;
     }

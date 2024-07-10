@@ -61,7 +61,7 @@ public class PasswordSaverService(ISavedPasswordRepository savedPasswordReposito
     public async Task<IServiceResult<IEnumerable<SavedPassword>>> Search(string search)
     {
         if (!IsValidSearch(search))
-            return ServiceResult<IEnumerable<SavedPassword>>.Failure("Некорректные параметры поиска"); 
+            return ServiceResult<IEnumerable<SavedPassword>>.Failure("Некорректные параметры поиска"); ;
         var savedPasswords = await _savedPasswordRepository.SearchBySource(FixSearch(search));
         return ServiceResult<IEnumerable<SavedPassword>>.Success(savedPasswords);
     }
