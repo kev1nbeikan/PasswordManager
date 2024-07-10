@@ -17,7 +17,7 @@ interface SavedPassword {
 })
 export class AppComponent
   implements OnInit {
-  public forecasts: SavedPassword[] = [];
+  public passwords: SavedPassword[] = [];
 
   constructor(private http: HttpClient
   ) {
@@ -31,7 +31,7 @@ export class AppComponent
   getForecasts() {
     this.http.get<SavedPassword[]>('password').subscribe(
       (result) => {
-        this.forecasts = result
+        this.passwords = result
       },
       (error) => {
         console.error(error);

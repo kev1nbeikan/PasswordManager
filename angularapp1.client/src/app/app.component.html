@@ -1,10 +1,12 @@
-﻿<h1 id="tableLabel">Weather forecast</h1>
+﻿<h1 id="tableLabel">Ваши сохраненные пароли</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
 
-<p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
-
-<table *ngIf="forecasts">
+<p *ngIf="!passwords"><em>Loading... Please refresh once the ASP.NET backend has started. See <a
+  href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+<p>
+  <app-password-form></app-password-form>
+</p>
+<table *ngIf="passwords">
   <thead>
   <tr>
     <th>Ресурс</th>
@@ -13,10 +15,10 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let forecast of forecasts">
-    <td>{{ forecast.source }}</td>
-    <app-password-display [password]=forecast.password></app-password-display>
-    <td>{{ forecast.createdDate }}</td>
+  <tr *ngFor="let password of passwords">
+    <td>{{ password.source }}</td>
+    <app-password-display [password]=password.password></app-password-display>
+    <td>{{ password.createdDate }}</td>
   </tr>
   </tbody>
 </table>
