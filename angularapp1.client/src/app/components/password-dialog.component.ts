@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from "@angular/common/http";
 
 
 enum SourceTypes {
@@ -134,9 +135,9 @@ export class PasswordDialogComponent implements OnInit {
   form: FormGroup;
   sourceType = 'site'; // По умолчанию сайт
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.form = new FormGroup({
-      name: new FormControl('', [Validators.required, this.validateEmail]),
+      name: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       sourceType: new FormControl(this.sourceType,),
     });
@@ -149,6 +150,23 @@ export class PasswordDialogComponent implements OnInit {
   savePassword(): void {
     if (this.form.valid) {
       console.log('Saved password:', this.form.value);
+
+      let passwordRequest = {
+        Source: this.form.get('name')?.value,
+        SourceType: this.form.value.sourceType,
+        Password: this.form.get('password')?.value
+      };
+
+      this.http.post('password', passwordRequest).subscribe(
+        (result) => {
+          console.log(result);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+
+
     }
   }
 
@@ -158,7 +176,7 @@ export class PasswordDialogComponent implements OnInit {
     this.closeDialogEvent.emit();
   }
 
-  validateEmail(control: FormControl): { [key: string]: any } | null {
+  validateEmail(control: AbstractControl): { [key: string]: any } | null {
     const email = control.value;
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email) ? null : {invalidEmail: true};
@@ -166,6 +184,14 @@ export class PasswordDialogComponent implements OnInit {
 
   onSourceTypeChange(type: string) {
     this.sourceType = type
+    if (type === 'email') {
+      this.form.get('name')?.setValidators([this.validateEmail,]);
+    } else if (type === 'site') {
+      this.form.get('name')?.removeValidators([this.validateEmail,]);
+    }
+
+    this.form.get('name')?.updateValueAndValidity();
+
     console.log(this.sourceType);
   }
 }
