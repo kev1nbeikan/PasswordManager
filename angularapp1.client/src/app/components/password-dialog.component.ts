@@ -2,12 +2,12 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {NotificationService} from "../services/notificationService";
+import {PasswordSaverService} from "../services/passwordSaverService";
+import { NewSavedPasswordRequest } from '../models/new-saved-password-request';
+import {SourceType} from "../models/source-type";
 
 
-enum SourceType {
-  Site = 1,
-  Email = 0
-}
+
 
 
 @Component({
@@ -142,7 +142,7 @@ export class PasswordDialogComponent implements OnInit {
   form: FormGroup;
   sourceType = 'site';
 
-  constructor(private http: HttpClient, private notificationService: NotificationService) {
+  constructor(private http: HttpClient, private notificationService: NotificationService, private passwordSaverService: PasswordSaverService) {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -158,13 +158,13 @@ export class PasswordDialogComponent implements OnInit {
     if (this.form.valid) {
       console.log('Saved password:', this.form.value);
 
-      let passwordRequest = {
-        Source: this.form.get('name')?.value,
-        SourceType: this.parseSourceType(this.form.value.sourceType),
-        Password: this.form.get('password')?.value
+      let passwordRequest: NewSavedPasswordRequest = {
+        password: this.form.value.password,
+        source: this.form.value.name,
+        sourceType: this.parseSourceType(this.form.value.sourceType)
       };
 
-      this.http.post('password', passwordRequest).subscribe(
+      this.passwordSaverService.savePassword(passwordRequest).subscribe(
         (response: any) => {
           const responseBody = response.body;
           this.notificationService.showSuccessWithTimeout('Пароль успешно сохранен', 3000);
@@ -212,14 +212,14 @@ export class PasswordDialogComponent implements OnInit {
   }
 
 
-  parseSourceType(sourceType: string): SourceType | null {
+  parseSourceType(sourceType: string): SourceType {
     switch (sourceType) {
       case 'email':
         return SourceType.Email;
       case 'site':
         return SourceType.Site;
       default:
-        return null;
+        return SourceType.Site;
     }
   }
 

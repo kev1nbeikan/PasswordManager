@@ -2,7 +2,6 @@ import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NotificationService} from '../services/notificationService';
-import {Observable} from 'rxjs';
 import {SavedPassword} from '../models/saved-password';
 import {PasswordSaverService} from "../services/passwordSaverService";
 
@@ -22,11 +21,10 @@ export class SearchComponent implements OnInit {
   searchQuery: string = '';
   lastSearchResults: SavedPassword[] = []; // Храним результаты последнего успешного поиска
 
-  constructor(private http: HttpClient, private notificationService: NotificationService, private passwordService: PasswordSaverService) {
+  constructor(private notificationService: NotificationService, private passwordService: PasswordSaverService) {
   }
 
   ngOnInit() {
-    // Никаких  `Observable`  не нужно в  `ngOnInit`
   }
 
   onSearchChange() {
